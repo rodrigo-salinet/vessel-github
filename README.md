@@ -1,10 +1,10 @@
 <table>
   <tr>
     <td>
-      <img src="./.git2bis/assets/img/logo.png" height="70px" width="70px">
+      <img src="./.github/blue-vessel.png">
     </td>
     <td>
-      <h1 style="font-weight:bold">VESSEL</h1>
+      <h1 style="font-weight:bold">VESSEL GitHUB</h1>
       <div>
         <img src="https://img.shields.io/badge/version-1.0.0-orange.svg?&style=for-the-badge" alt="version">
         <img src="https://img.shields.io/badge/magento%20version-1.5.1%20composer-purple.svg?logo=magento&style=for-the-badge" alt="magento">
@@ -16,8 +16,8 @@
     <td>
       <div>
         <h2>Shell Script</h2>
-        <img src="./.git2bis/assets/img/bash.webp" alt="bash" height="70px" width="70px">
-        <img src="./.git2bis/assets/img/zsh.png" alt="zsh" height="70px" width="70px">
+        <img src="./.github/shell-script-logo.jpg">
+        <img src="./.github/oh-my-zsh.png">
       </div>
     </td>
   </tr>
@@ -25,7 +25,7 @@
     <td>
         <div>
           <h2>Versionamento</h2>
-          <img src="./.git2bis/assets/img/git.png" alt="git" height="70px" width="70px">
+          <img src="./.github/git-github.png">
         </div>
     </td>
   </tr>
@@ -33,7 +33,7 @@
     <td>
         <div>
         <h2>Sistema Operacional</h2>
-          <img src="./.git2bis/assets/img/ubuntu.jpeg" alt="git" height="70px" width="70px">
+          <img src="./.github/logo-ubuntu.png">
         </div>
     </td>
   </tr>
@@ -45,8 +45,7 @@
 
 Vessel é um programa em feito com scritps `shell` para gerar o ambiente de desenvolvimento do `Magento 1` e `Magento 2`
 
-Referências M1 -> Extraídas da branch do Marcão [@macoaure](https://git2bis.com.br/bis2bis/m1/dev-tools/vessel/-/tree/macoaure)
-Referências M2 -> Extraídas da branch do Leo Henrique [@leohenrique](https://git2bis.com.br/bis2bis/m1/dev-tools/vessel/-/tree/leo-henrique)
+Referências: Marcão (https://github.com.br/macoaure)
 
 <hr>
 
