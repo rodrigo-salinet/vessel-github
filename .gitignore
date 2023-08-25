@@ -1,0 +1,15 @@
+.idea
+.vscode
+.env
+
+/magento1/data/www
+/magento1/backups/mysql
+/magento1/ca
+/magento1/log
+/magento1/autostart/composer_config.sh
+
+/magento2/data/www
+/magento2/backups/mysql
+/magento2/ca
+/magento2/log
+/magento2/autostart/composer_config.sh

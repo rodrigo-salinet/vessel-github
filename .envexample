@@ -1,0 +1,26 @@
+# Seu token de acesso ao Git2bis
+GIT2BIS_TOKEN=
+
+# Seu username de acesso ao Git2bis
+GIT2BIS_USERNAME=
+
+# Seu email de acesso ao Git2bis
+GIT2BIS_USEREMAIL=
+
+# Seu login de ROOT
+USER=
+
+# Sua senha de ROOT
+ROOT_PASSWORD=
+
+# Tempo antes de tomar uma decisão automaticamente
+WAIT_TIME=3
+
+# caminho para a pasta de lojas M1
+M1_STORE_PATH=
+
+# caminho para a pasta de lojas M2
+M2_STORE_PATH=
+
+# versão do Magento
+MAGENTO=1
