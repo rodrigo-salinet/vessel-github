@@ -45,17 +45,15 @@
 
 Vessel é um programa em feito com scritps `shell` para gerar o ambiente de desenvolvimento do `Magento 1` e `Magento 2`
 
-Referências: Marcão (https://github.com.br/macoaure)
-
 <hr>
 
 ## Requisitos necessários
 
-Ambiente local configurado para clonar repositórios no git2bis.
+Ambiente local configurado para clonar repositórios no github.
 
-[Acessar aqui para gerenciar o SSH](https://git2bis.com.br/-/profile/keys)
+[Acessar aqui para gerenciar o SSH](https://github.com/settings/keys)
 
-[Acesse para gerenciar um token para usar no .env da raiz do vessel](https://git2bis.com.br/-/profile/personal_access_tokens).
+[Acesse para gerenciar um token para usar no .env da raiz do vessel](https://github.com/settings/tokens).
 
 <hr>
 
@@ -67,25 +65,19 @@ Para instalar, siga os passos abaixo:
 
 2. Acesse o diretório onde será instalado, execute por exemplo `cd /home/$USER`;
 
-3. Faça o download do arquivo <a href="https://git2bis.com.br/bis2bis/m1/dev-tools/vessel/-/blob/salinet/vessel_install.sh" target="_blank">`vessel_install.sh`</a>;
+3. Faça o download do arquivo <a href="https://github.com/rodrigo-salinet/vessel-github/vessel_install.sh" target="_blank">`vessel_install.sh`</a>;
 
-  3.1. Clique com o botão direito em cima do link https://git2bis.com.br/bis2bis/m1/dev-tools/vessel/-/blob/salinet/vessel_install.sh;
+  3.1. Clique com o botão direito em cima do link https://github.com/rodrigo-salinet/vessel-github/vessel_install.sh;
   3.2. Em seguida clique em `Salvar link como`;
   3.3. Salve na mesma pasta do passo 2.
 
 4. Feito o download do arquivo, agora pelo terminal, já na pasta selecionada no passo 2, digite `./vessel_install.sh` e tecle ENTER;
 
-5. Siga os passos de instalação e, caso ocorra algum erro, reporte todos os erros para rodrigo.salinet@bistwobis.com.br, que será providenciada uma solução.
+5. Siga os passos de instalação e, caso ocorra algum erro, reporte todos os erros para rodrigo.salinet@gmail.com, que será providenciada uma solução.
 
 <hr>
 
 ## Contribuição
-
-<hr>
-
-### Sugestões
-
-Abra uma [Issue](https://git2bis.com.br/bis2bis/m1/dev-tools/vessel/-/issues) que discutiremos sua sugestão
 
 <hr>
 
