@@ -1,0 +1,169 @@
+//Limpar cache terminal: 
+
+./bin/magento setup:install \
+        --db-host=mysql \
+        --db-name=wilsonatacado\
+        --db-user=root \
+        --db-password=magento \
+        --admin-firstname=Suporte \
+        --admin-lastname=Bis2bis \
+        --admin-email=suporte@bis2bis.com.br \
+        --admin-user=bis2bis \
+        --admin-password=admin123 \
+        --backend-frontname=admin \
+        --cleanup-database
+
+./bin/magento config:set web/unsecure/base_url 'http://nomedaloja.loc/'
+./bin/magento config:set web/secure/base_url 'https://nomedaloja.loc/'
+
+./bin/magento config:set admin/dashboard/enable_charts 1
+./bin/magento config:set admin/security/admin_account_sharing 1
+./bin/magento config:set admin/security/lockout_failures '0'
+./bin/magento config:set admin/security/lockout_threshold ''
+./bin/magento config:set admin/security/password_is_forced 0
+./bin/magento config:set admin/security/password_lifetime ''
+./bin/magento config:set admin/security/session_lifetime 31536000
+./bin/magento config:set admin/security/use_form_key 0
+./bin/magento config:set catalog/custom_options/date_fields_order 'd,m,y'
+./bin/magento config:set catalog/custom_options/time_format '24h'
+./bin/magento config:set cataloginventory/options/show_out_of_stock 1
+./bin/magento config:set customer/password/lockout_failures 0
+./bin/magento config:set customer/password/lockout_threshold 0
+./bin/magento config:set customer/password/required_character_classes_number 2
+./bin/magento config:set currency/options/allow BRL
+./bin/magento config:set dev/image/default_adapter IMAGEMAGICK
+./bin/magento config:set general/country/allow BR
+./bin/magento config:set general/country/default BR
+./bin/magento config:set general/country/destinations BR
+./bin/magento config:set general/country/optional_zip_countries BR
+./bin/magento config:set general/locale/code pt_BR
+./bin/magento config:set general/locale/timezone America/Sao_Paulo
+./bin/magento config:set general/locale/weight_unit kgs
+./bin/magento config:set general/region/display_all 1
+./bin/magento config:set general/region/state_required BR
+./bin/magento config:set general/single_store_mode/enabled 1
+./bin/magento config:set general/store_information/country_id BR
+./bin/magento config:set general/store_information/region_id 499
+./bin/magento config:set general/store_information/name 'Bis2bis E-commerce'
+./bin/magento config:set general/store_information/phone '43 3326-1500'
+./bin/magento config:set general/store_information/postcode '86050-435'
+./bin/magento config:set general/store_information/city 'Londrina'
+./bin/magento config:set general/store_information/street_line1 'Bento Munhoz da Rocha Neto'
+./bin/magento config:set general/store_information/merchant_vat_number '10.738.352/0001-00'
+./bin/magento config:set oauth/access_token_lifetime/customer ''
+./bin/magento config:set oauth/access_token_lifetime/admin ''
+./bin/magento config:set oauth/consumer/expiration_period 31536000
+./bin/magento config:set sales_email/general/async_sending 1
+./bin/magento config:set sitemap/generate/enabled 1
+./bin/magento config:set sitemap/generate/time '02,00,00'
+./bin/magento config:set sitemap/generate/frequency D
+./bin/magento config:set sitemap/search_engines/submission_robots 1
+./bin/magento config:set shipping/origin/country_id BR
+./bin/magento config:set shipping/origin/region_id 499
+./bin/magento config:set shipping/origin/postcode 86050-435
+./bin/magento config:set shipping/origin/city Londrina
+./bin/magento config:set shipping/origin/street_line1 'Rua Bento Munhoz da Rocha Neto'
+./bin/magento config:set system/backup/functionality_enabled 1
+./bin/magento config:set system/currency/installed BRL
+./bin/magento config:set system/upload_configuration/jpeg_quality 90
+./bin/magento config:set system/upload_configuration/max_height 1080
+./bin/magento config:set web/seo/use_rewrites 1
+./bin/magento config:set web/secure/use_in_frontend 1
+./bin/magento config:set web/secure/use_in_adminhtml 1
+
+bin/magento setup:upgrade ; bin/magento setup:di:compile
+
+//Aumentar Memória
+
+COMPOSER_MEMORY_LIMIT=-1 composer update
+
+PASSOS PARA SUBIR O COMPOSER.LOCK
+
+1- Fora do ssh excluir o arquivo composer.lock
+    rm -Rf composer.lock
+
+2- Criar uma nova branch com o nome da task
+    git checkout -b [nomeDaTask]
+
+3- Dentro do SSH atualizar o composer.
+    composer update
+
+4- Apos testar na loja local se funcionou a alteracao
+    bin/magento setup:upgrade ; bin/magento setup:di:compile
+
+5- Fora do ssh subir o composer.lock
+    git add composer.lock
+
+6- Adicionar comentario
+    git commit -m ":emoji: mensagem do commit"
+
+7- Subir a nova branch
+    git push
+
+///Instalar Banco de dados para aparecer a loja como está 
+
+camainbox.sql.gz
+
+pv "/shared/backups/mysql/nomedaloja.sql.gz" | gunzip | mysql -h mysql -u root -pmagento "nomedaloja"
+
+pv "/shared/backups/mysql/nomedaloja.sql" | mysql -h mysql -u root -pmagento "nomedaloja"
+
+./bin/magento config:set web/unsecure/base_url 'http://nomedaloja.loc/'
+./bin/magento config:set web/secure/base_url 'https://nomedaloja.loc/'
+
+depois:
+
+bin/magento setup:upgrade ; bin/magento setup:di:compile
+
+Limpar cache no terminal
+
+./bin/magento cache:flush
+
+/////comando de alteração de acesso pelo banco da local
+
+UPDATE admin_user SET password = CONCAT(SHA2('xxxxxxxYourNewPassword', 256), ':xxxxxxx:1') WHERE username = 'admin';
+
+Remover a vendor: rm -Rf vendor 
+Depois: COMPOSER_MEMORY_LIMIT=-1 composer install
+
+Atualizando a minha local
+
+git branch
+git checkout develop
+git checkout .
+git clean -fd
+git pull
+rm -Rf composer.lock
+COMPOSER_MEMORY_LIMIT=-1 composer update
+
+Remover dois fatores
+
+bin/magento module:disable Magento_TwoFactorAuth
+
+
+Git 1 tema 
+
+app /code / clonar tema do git lab 
+git branch develop
+git pull origin develop
+
+agora colar o tema que está em vendor/bistwobis/o tema que está trabalhando
+
+no terminal dar git status
+depois git add
+depois git commit -m "....."
+criar uma branch
+retornar a develop
+git push origin "emoji - o que é -frase - ticket"
+
+Command line user does not have read and write permissions on generated directory. Please address this issue before using Magento command line.
+SOLUÇÃO:
+
+sudo chmod 0777 -R generated
+sudo php bin/magento setup:di:compile
+
+ajustar layout quebrado
+INSERT INTO core_config_data (path, value) VALUES ('dev/static/sign', 0) ON DUPLICATE KEY UPDATE value = 0;
+
+desativar módulos não nativos (executar via ssh na raiz da loja)
+php bin/magento module:status | grep -v Magento | grep -v List | grep -v None | grep -v -e '^$'| xargs php bin/magento module:disable

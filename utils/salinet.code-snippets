@@ -1,0 +1,153 @@
+{
+    "mlog": {
+        "prefix": "mlog",
+        "body": [
+            "Mage::log(",
+            "    get_class(\\$var),",
+            "    null,",
+            "    __FUNCTION__ . '_mlog.log',",
+            "    true",
+            ");"
+        ],
+        "deion": "Log output to console"
+    },
+    "mlogd": {
+        "prefix": "mlogd",
+        "body": [
+            "Mage::log(",
+            "    debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS),",
+            "    null,",
+            "    __FUNCTION__ . '_mlogd.log',",
+            "    true",
+            ");"
+        ],
+        "deion": "Log output backtrace to console"
+    },
+    "php": {
+        "prefix": "php",
+        "body": [
+            "<?php",
+            "    /**",
+            "     * documentate this",
+            "     */",
+            "    \\$var='value';",
+            "    /* action */",
+            "?>"
+        ],
+        "deion": "Quick PHP"
+    },
+    "json": {
+        "prefix": "json",
+        "body": [
+            "json_encode(\\$var, JSON_PRETTY_PRINT);"
+        ],
+        "deion": "Quick json_encode"
+    },
+    "methods": {
+        "prefix": "methods",
+        "body": [
+            "json_encode(get_class_methods(\\$var), JSON_PRETTY_PRINT);"
+        ],
+        "deion": "Quick get_class_methods"
+    },
+    "mlogj": {
+        "prefix": "mlogj",
+        "body": [
+            "Mage::log(",
+            "    json_encode(\\$var, JSON_PRETTY_PRINT),",
+            "    null,",
+            "    __FUNCTION.'_mlogj.log',",
+            "    true",
+            ");"
+        ],
+        "deion": "Log output with json_encode"
+    },
+    "epre": {
+        "prefix": "epre",
+        "body": [
+            "echo '<pre>';"
+        ],
+        "deion": "Fast <pre> tag create"
+    },
+    "pbr": {
+        "prefix": "pbr",
+        "body": [
+            "print_r('<br>');"
+        ],
+        "deion": "Fast <br> tag create"
+    },
+    "mclass": {
+        "prefix": "mclass",
+        "body": [
+            "Mage::log(",
+            "    get_class(\\$var),",
+            "    null,",
+            "    __FUNCTION__ . '_mclass.log',",
+            "    true",
+            ");"
+        ],
+        "description": "Log class objetc from output to console"
+    },
+    "feach": {
+        "prefix": "feach",
+        "body": [
+            "\\$i = 0;",
+            "foreach (\\$array as \\$key => \\$value) {",
+            "    /* action; */",
+            "    \\$i++;",
+            "}"
+        ],
+        "description": "Mount php foreach function with counter"
+    },
+    "sevents": {
+        "prefix": "sevents",
+        "body": [
+            "// Exibe na tela todos os eventos da loja.",
+            "// require_once './app/Mage.php'; // carrega o arquivo Mage.php",
+            "// Mage::init(); // inicializa o Mage",
+            "",
+            "\\$rewrites = Mage::getConfig()->getNode()->xpath('//global//events');",
+            "echo '<table>';",
+            "foreach (\\$rewrites as \\$key => \\$rewrite) {",
+            "    foreach (\\$rewrite as \\$name => \\$rw) {",
+            "        echo '<tr>';",
+            "        echo '<td>';",
+            "        echo \\$name;",
+            "        echo '</td>';",
+            "        echo '<td>';",
+            "        print_r(array_shift(json_decode(json_encode(\\$rw), true)));",
+            "        echo '</td>';",
+            "        echo '</tr>';",
+            "    }",
+            "}",
+            "echo '</table>';"
+        ],
+        "description": "Mount php show Mage events function"
+    },
+    "addrepo": {
+        "prefix": "addrepo",
+        "body": [
+            ","
+            "\"reponame\": {",
+            "    \"type\": \"vcs\",",
+            "    \"url\": \"git@git2bis.com.br:bis2bis/bis2bis/modulepath\"",
+            "}",
+        ],
+        "description": "Add manually ssh url to clone repository in composer.json files into repositories"
+    },
+    "addreq": {
+        "prefix": "addreq",
+        "body": [
+            ","
+            "\"bis2bis/composername\": \"^tag-or-dev-branchname\"",
+        ],
+        "description": "Add manually namespace and branch name repository in composer.json files into require"
+    },
+    "gsconfig": {
+        "prefix": "gsconfig",
+        "body": [
+            "<?php echo Mage::getStoreConfig('core_config_data-path'); ?>",
+        ],
+        "description": "Mount php Mage::getStoreConfig method"
+    }
+}

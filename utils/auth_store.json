@@ -1,0 +1,17 @@
+{
+  "gitlab-token": {
+    "git2bis.com.br": "EPHBxnoKP-cyV8Gvra1J"
+  },
+  "http-basic": {
+    "repo.magento.com": {
+      "username": "4b5035e90eebe8bb3e77b7fec37f18e2",
+      "password": "a5b4ed3838cb726d81054dd1ce528dde"
+    }
+  },
+  "gitlab-oauth": {
+    "git2bis.com.br": "a1303b04d0c63f34ac2529d09c6e53a450f9253e1e40af07043f2ef16a0d2388"
+  },
+  "github-oauth": {
+    "github.com": "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"
+  }
+}

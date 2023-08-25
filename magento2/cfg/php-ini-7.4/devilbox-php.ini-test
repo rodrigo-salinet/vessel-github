@@ -1,0 +1,92 @@
+[PHP]
+;short_open_tag = Off
+;asp_tags = Off
+;zlib.output_compression = On
+
+max_execution_time = 300
+max_input_time = 300
+memory_limit = 8G
+
+;file_uploads = On
+max_file_uploads = 20
+upload_max_filesize = 256M
+always_populate_raw_post_data = -1
+
+max_input_vars = 8000 ; How many GET/POST/COOKIE input variables may be accepted
+post_max_size = 512M ; Maximum size of POST data that PHP will accept.
+;magic_quotes_gpc = Off
+;magic_quotes_sybase = Off
+
+;auto_detect_line_endings = Off
+
+variables_order = EGPCS
+max_input_nesting_level = 64
+
+error_reporting = E_ALL | E_NOTICE | E_STRICT | E_DEPRECATED
+xmlrpc_errors = Off
+report_memleaks = On
+display_errors = On
+display_startup_errors = On
+track_errors = On
+log_errors = On
+html_errors = On
+;log_errors_max_len = 1024
+;ignore_repeated_errors = On
+;ignore_repeated_source = On
+
+[opcache]
+
+;opcache.enable = 1
+;opcache.preferred_memory_model = "mmap"
+opcache.memory_consumption = 512
+opcache.interned_strings_buffer = 16
+opcache.max_accelerated_files = 100000
+opcache.enable_file_override = 1
+;opcache.validate_timestamps = 1
+;opcache.revalidate_freq = 30
+opcache.fast_shutdown = 1
+;opcache.enable_cli = 1
+;opcache.revalidate_path = 1
+opcache.save_comments = 1
+;opcache.use_cwd = 1
+;opcache.consistency_checks = 0
+
+;[mysqlnd]
+;mysqlnd.collect_statistics = 0
+;mysqlnd.collect_memory_statistics = 0
+;mysqlnd.debug = 0
+;mysqlnd.log_mask = 0
+
+[xdebug]
+xdebug.profiler_enable = 0
+xdebug.profiler_enable_trigger = 0
+xdebug.profiler_output_name = xdebug.out.%t
+xdebug.output_dir = /tmp
+xdebug.start_with_request = default
+xdebug.profiler_append = 0
+xdebug.trigger_value = ""
+xdebug.max_nesting_level = -1
+
+; Defaults
+xdebug.mode = debug,develop
+xdebug.default_enable = 1
+xdebug.remote_handler = dbgp
+xdebug.remote_enable = 1
+xdebug.remote_port = 9000
+xdebug.client_port = 9000
+
+; The Linux way
+xdebug.remote_connect_back = 1
+xdebug.discover_client_host = 1
+
+; idekey value is specific to Visual Studio Code
+xdebug.idekey = VSCODE
+
+; Optional: Set to true to always auto-start xdebug
+xdebug.remote_autostart = true
+xdebug.start_with_request = yes
+
+[mail function]
+sendmail_path = '/usr/local/bin/mhsendmail --smtp-addr="mailhog:1025"'
+;security.limit_extensions = .php .php3 .php4 .php5 .html .htm .js .css
+;cgi.fix_pathinfo = 1
