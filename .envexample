@@ -1,11 +1,11 @@
-# Seu token de acesso ao Git2bis
-GIT2BIS_TOKEN=
+# Seu token de acesso ao GitHUB
+GITHUB_TOKEN=
 
-# Seu username de acesso ao Git2bis
-GIT2BIS_USERNAME=
+# Seu username de acesso ao GitHUB
+GITHUB_USERNAME=
 
-# Seu email de acesso ao Git2bis
-GIT2BIS_USEREMAIL=
+# Seu email de acesso ao GitHUB
+GITHUB_USEREMAIL=
 
 # Seu login de ROOT
 USER=
