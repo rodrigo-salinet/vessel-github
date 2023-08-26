@@ -213,7 +213,7 @@ configM2Store() {
   NotifyInfo "Configurando general/store_information/region_id"
   MExecute "$MAGENTO_EXEC config:set general/store_information/region_id 499"
   NotifyInfo "Configurando general/store_information/name"
-  MExecute "$MAGENTO_EXEC config:set general/store_information/name 'Bis2bis E-commerce'"
+  MExecute "$MAGENTO_EXEC config:set general/store_information/name 'Salinet Agencia Digital'"
   NotifyInfo "Configurando general/store_information/phone"
   MExecute "$MAGENTO_EXEC config:set general/store_information/phone '43 3326-1500'"
   NotifyInfo "Configurando general/store_information/postcode"

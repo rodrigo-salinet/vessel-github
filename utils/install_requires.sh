@@ -43,17 +43,17 @@ case $SoN in
         NotifyInfo "Instalando git..."
         sudo apt install -y git && NotifySuccess "Instalação bem sucedida!" || NotifyError "Por algum motivo acima a instalação falhou."
 
-        if [ -z "$GIT2BIS_USERNAME" ]; then
-            cfgGit2bisUsernameNull
+        if [ -z "$GITHUB_USERNAME" ]; then
+            cfgGithubUsernameNull
         fi
         NotifyInfo "Configurando git user.name local..."
-        git config --global user.name ${GIT2BIS_USERNAME} && NotifySuccess "git user.name local configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o git user.name local."
+        git config --global user.name ${GITHUB_USERNAME} && NotifySuccess "git user.name local configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o git user.name local."
 
-        if [ -z "$GIT2BIS_USEREMAIL" ]; then
-            cfgGit2bisUseremailNull
+        if [ -z "$GITHUB_USEREMAIL" ]; then
+            cfgGithubUseremailNull
         fi
         NotifyInfo "Configurando git user.email local..."
-        git config --global user.name ${GIT2BIS_USEREMAIL} && NotifySuccess "git user.email local configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o git user.email local."
+        git config --global user.name ${GITHUB_USEREMAIL} && NotifySuccess "git user.email local configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o git user.email local."
 
         NotifyInfo "Instalando build-essential..."
         sudo apt install -y build-essential && NotifySuccess "Instalação bem sucedida!" || NotifyError "Por algum motivo acima a instalação falhou."
@@ -67,8 +67,8 @@ case $SoN in
         NotifyInfo "Instalando snapd..."
         sudo apt install -y snapd && NotifySuccess "Instalação bem sucedida!" || NotifyError "Por algum motivo acima a instalação falhou."
 
-        NotifyInfo "Instalando code..."
-        sudo snap install code --classic && NotifySuccess "Instalação bem sucedida!" || NotifyError "Por algum motivo acima a instalação falhou."
+        #NotifyInfo "Instalando code..."
+        #sudo snap install code --classic && NotifySuccess "Instalação bem sucedida!" || NotifyError "Por algum motivo acima a instalação falhou."
 
         NotifyInfo "Desinstalando docker docker-engine docker.io containerd runc..."
         sudo apt remove -y docker docker-engine docker.io containerd runc && NotifySuccess "Aplicativos docker, docker-engine, docker.io, containerd e runc removidos com sucesso!" || NotifyError "Por algum motivo acima não foi possível remover os aplicativos docker, docker-engine, docker.io, containerd e runc, talvez porque ainda não tenham sido instalados. Veja log de erro acima acima."
@@ -130,17 +130,14 @@ case $SoN in
         php -r "unlink('composer-setup.php');" && NotifySuccess "Instalação do composer removida com sucesso." || NotifyError "Por algum motivo acima não foi possível remover a instalaçõa do composer."
         sudo mv composer.phar /usr/local/bin/composer && NotifySuccess "composer.phar renomeado para composer com sucesso." || NotifyError "Por algum motivo acima não foi possível renomear o composer.phar para composer."
 
-        if [ -z $GIT2BIS_TOKEN ]; then
-            cfgGit2bisTokenNull
+        if [ -z $GITHUB_TOKEN ]; then
+            cfgGithubTokenNull
         fi
-        NotifyInfo "Configurando token git2bis local..."
-        composer global config gitlab-token.git2bis.com.br ${GIT2BIS_TOKEN} && NotifySuccess "Token git2bis configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
-
-        NotifyInfo "Configurando token gitlab local..."
-        yes | composer global config gitlab-token.gitlab.com EPHBxnoKP-cyV8Gvra1J && NotifySuccess "Token gitlab configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
+        NotifyInfo "Configurando token github local..."
+        composer global config github-token.github.com ${GITHUB_TOKEN} && NotifySuccess "Token github configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
 
         NotifyInfo "Configurando domains local..."
-        composer global config gitlab-domains "git2bis.com.br" "gitlab.com" && NotifySuccess "Domains configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
+        composer global config github-domains "github.com" "github.com" && NotifySuccess "Domains configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
 
         NotifyInfo "Configurando http-basic local..."
         composer global config http-basic.repo.magento.com 4b5035e90eebe8bb3e77b7fec37f18e2 a5b4ed3838cb726d81054dd1ce528dde && NotifySuccess "http-basic configurado com sucesso!" || NotifyError "Por algum motivo acima a configuração falhou."
@@ -202,7 +199,6 @@ case $SoN in
         Notify "https://marketplace.visualstudio.com/items?itemName=KnisterPeter.vscode-github"
         Notify "https://marketplace.visualstudio.com/items?itemName=howardzuo.vscode-gitk"
         Notify "https://marketplace.visualstudio.com/items?itemName=albizures.gitkit"
-        Notify "https://marketplace.visualstudio.com/items?itemName=GitLab.gitlab-workflow"
         Notify "https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens"
         Notify "https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css"
         Notify "https://marketplace.visualstudio.com/items?itemName=abusaidm.html-snippets"
@@ -255,7 +251,6 @@ case $SoN in
                 code --install-extension KnisterPeter.vscode-github
                 code --install-extension howardzuo.vscode-gitk
                 code --install-extension albizures.gitkit
-                code --install-extension GitLab.gitlab-workflow
                 code --install-extension eamodio.gitlens
                 code --install-extension ecmel.vscode-html-css
                 code --install-extension abusaidm.html-snippets

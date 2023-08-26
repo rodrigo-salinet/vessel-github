@@ -205,7 +205,7 @@ installComposerModule() {
   esac
 
   NotifyAsk "Digite ou cole o NAMESPACE do repositório do módulo a ser instalado e tecle ENTER."
-  Notify "Exemplos: bis2bis, bis2libs, magestore"
+  Notify "Exemplos: phpcs, magestore..."
   read REPOSITORY_NAMESPACE
   case $REPOSITORY_NAMESPACE in
     "")
@@ -228,103 +228,6 @@ installComposerModule() {
 
   NotifyInfo "Instalando módulo $REPOSITORY_NAME:$BRANCH_REPOSITORY. Aguarde..."
   ComposerUpdate && NotifySuccess "Módulo $REPOSITORY_NAME:$BRANCH_REPOSITORY instalado com sucesso" || NotifyError "Por algum motivo acima não foi possível instalar o módulo $REPOSITORY_NAME:$BRANCH_REPOSITORY"
-}
-
-csdMergeAll() {
-  PNameLocal
-
-  NotifyError "ATENÇÃO: Recurso disponível apenas da branch master da csd https://git2bis.com.br/bis2bis/bis2bis-stores/cidade-cancao-csd/-/tree/master , caso contrário, o processo de merge será cancelado!"
-
-  # # URL Git2bis ssh das lojas
-  GIT2BIS_URL=git@git2bis.com.br:bis2bis/bis2bis-stores
-
-  # Nome do repositório CSD
-  REPO_CSD_NAME=cidade-cancao-csd
-
-  # Repositório CSD
-  REPO_CSD_URL=/$REPO_CSD_NAME.git
-
-  # Nome do repositório CSD Amigão
-  REPO_CSD_AMIGAO_NAME=amigao-csd
-
-  # Repositório CSD Amigão
-  REPO_CSD_AMIGAO_URL=$GIT2BIS_URL/$REPO_CSD_AMIGAO_NAME.git
-
-  # Nome do repositório CSD Apucarana
-  REPO_CSD_APUCARANA_NAME=apucarana-cidade-cancao
-
-  # Repositório CSD Apucarana
-  REPO_CSD_APUCARANA_URL=$GIT2BIS_URL/$REPO_CSD_APUCARANA_NAME.git
-
-  # Nome do repositório CSD
-  REPO_CSD_TRES_LAGOAS_NAME=csd-tres-lagoas
-
-  # Repositório CSD Três lagoas
-  REPO_CSD_TRES_LAGOAS_URL=$GIT2BIS_URL/$REPO_CSD_TRES_LAGOAS_NAME.git
-
-  # Nome do repositório CSD Dourados
-  REPO_CSD_DOURADOS_NAME=csd-dourados
-
-  # Repositório CSD Dourados
-  REPO_CSD_DOURADOS_URL=$GIT2BIS_URL/$REPO_CSD_DOURADOS_NAME.git
-
-  # Caminho de arquivos temporários
-  TMP_PATH=/tmp
-
-  # Caminho dos repositórios temporários da CSD
-  TMP_CSD_PATH=$TMP_PATH/csd
-
-  NotifyInfo "Verificando diretório temporário $TMP_CSD_PATH"
-  if [ ! -d "$TMP_CSD_PATH" ]; then
-    cd $TMP_PATH
-    mkdir csd && NotifySuccess "Diretório csd criado com sucesso em $TMP_PATH" || NotifyError "Por algum motivo acima não foi possível criar o diretório csd em $TMP_PATH"
-  fi
-
-  NotifyInfo "Verificando diretório $REPO_CSD_NAME"
-  if [ -d "$TMP_CSD_PATH/$REPO_CSD_NAME" ]; then
-      rm -rf $TMP_CSD_PATH/$REPO_CSD_NAME && NotifySuccess "Diretório $REPO_CSD_NAME removido com sucesso" || NotifyError "Por algum motivo acima não foi possível remover o diretório $REPO_CSD_NAME"
-  fi
-
-  cd $TMP_CSD_PATH/$REPO_CSD_NAME && git clone $REPO_CSD && NotifySuccess "Repositório cidade-cancao-csd clonado com sucesso" || echo "Por algum motivo acima não foi possível clonar o repositório cidade-cancao-csd"
-
-  NotifyInfo "Adicionando repositório remoto da branch master da csd"
-  git remote add csd $GIT2BIS_URL/$REPO_CSD_NAME.git && NotifySuccess "Repositório remoto da branch master da csd adicionado com sucesso" || NotifyError "Por algum motivo acima não foi possível adicionar o repositório remoto da branch master da csd"
-
-  NotifyInfo "Buscando branch master da csd"
-  git fetch csd master && NotifySuccess "Branch master da csd encontrada com sucesso" || NotifyError "Por algum motivo acima não foi possível encontrar a branch master da csd"
-
-  NotifyInfo "Digite o código SHA do commit para executar o cherry-pick ou tecle ENTER para sair"
-
-  read COMMITSHA
-  case "$COMMITSHA" in
-  "")
-    NotifyInfo "Saindo, mas antes executando pull e push para enviar as alterações"
-    git pull && NotifySuccess "git pull executado com sucesso" || "Por algum motivo acima não foi possível executar o git pull"
-    git push && NotifyError "git push executado com sucesso" || "Por algum motivo acima não foi possível executar o git push"
-    exit
-    ;;
-  *)
-    NotifyInfo "Adicionando commit $COMMITSHA"
-    git cherry-pick -x $COMMITSHA && NotifySuccess "Commit $COMMITSHA adicionado com sucesso" || NotifyError "Por algum motivo acima não foi possível adicionar o commit $COMMITSHA"
-
-    cherryPick
-    ;;
-  esac
-
-  NotifyInfo "Realizando merges no repositório da loja https://git2bis.com.br/bis2bis/bis2bis-stores/cidade-cancao-csd"
-  php $V_PATH/utils/csd-csd-merge.php && NotifySuccess "Merge realizado com sucesso" || NotifyError "Por algum motivo acima não foi possível realizar o merge na loja https://git2bis.com.br/bis2bis/bis2bis-stores/cidade-cancao-csd"
-
-  NotifyInfo "Realizando merges no repositório da loja https://git2bis.com.br/bis2bis/bis2bis-stores/amigao-csd"
-  php $V_PATH/utils/csd-amigao-merge.php && NotifySuccess "Merge realizado com sucesso" || NotifyError "Por algum motivo acima não foi possível realizar o merge na loja https://git2bis.com.br/bis2bis/bis2bis-stores/amigao-csd"
-
-  NotifyInfo "Realizando merges no repositório da loja https://git2bis.com.br/bis2bis/bis2bis-stores/apucarana-cidade-cancao"
-  php $V_PATH/utils/csd-apucarana-merge.php && NotifySuccess "Merge realizado com sucesso" || NotifyError "Por algum motivo acima não foi possível realizar o merge na loja https://git2bis.com.br/bis2bis/bis2bis-stores/apucarana-cidade-cancao"
-
-  NotifyInfo "Realizando merges no repositório da loja https://git2bis.com.br/bis2bis/bis2bis-stores/csd-dourados"
-  php $V_PATH/utils/csd-dourados-merge.php && NotifySuccess "Merge realizado com sucesso" || NotifyError "Por algum motivo acima não foi possível realizar o merge na loja https://git2bis.com.br/bis2bis/bis2bis-stores/csd-dourados"
-
-  NotifyInfo "Realizando merges no repositório da loja https://git2bis.com.br/bis2bis/bis2bis-stores/csd-tres-lagoas"
-  php $V_PATH/utils/csd-treslagoas-merge.php && NotifySuccess "Merge realizado com sucesso" || NotifyError "Por algum motivo acima não foi possível realizar o merge na loja https://git2bis.com.br/bis2bis/bis2bis-stores/csd-tres-lagoas"
 }
 
 VerEventosMage() {

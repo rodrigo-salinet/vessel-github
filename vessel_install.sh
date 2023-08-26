@@ -59,9 +59,9 @@ if [ ! -f "/home/$USER/.ssh/id_ed25519.pub" ]; then
 
   NotifyInfo "Para continuar: 
   
-  1. Adicione a chave SSH gerada acima ao seu repositório do Git2bis em https://git2bis.com.br/-/profile/keys;
+  1. Adicione a chave SSH gerada acima ao seu repositório do Github em https://github.com/settings/keys;
   
-  2. Depois acesse https://git2bis.com.br/-/profile/personal_access_tokens para gerar um novo token de acesso (OBS: NÃO ESQUEÇA DE SALVAR O TOKEN EM UM ARQUIVO DE TEXTO NA SUA MÁQUINA!!!); e,
+  2. Depois acesse https://github.com/settings/tokens para gerar um novo token de acesso (OBS: NÃO ESQUEÇA DE SALVAR O TOKEN EM UM ARQUIVO DE TEXTO NA SUA MÁQUINA!!!); e,
   
   3. Depois adicione o token gerado na continuação da instalação do vessel."
 fi
@@ -76,9 +76,9 @@ if [ ! -f "/home/$USER/.ssh/id_ecdsa.pub" ]; then
 
   NotifyInfo "Para continuar: 
   
-  1. Adicione a chave SSH gerada acima ao seu repositório do Git2bis em https://git2bis.com.br/-/profile/keys;
+  1. Adicione a chave SSH gerada acima ao seu repositório do Github em https://github.com/settings/keys;
   
-  2. Depois acesse https://git2bis.com.br/-/profile/personal_access_tokens para gerar um novo token de acesso (OBS: NÃO ESQUEÇA DE SALVAR O TOKEN EM UM ARQUIVO DE TEXTO NA SUA MÁQUINA!!!); e,
+  2. Depois acesse https://github.com/settings/tokens para gerar um novo token de acesso (OBS: NÃO ESQUEÇA DE SALVAR O TOKEN EM UM ARQUIVO DE TEXTO NA SUA MÁQUINA!!!); e,
   
   3. Depois adicione o token gerado na continuação da instalação do vessel."
 fi
@@ -88,7 +88,7 @@ read YoN
 case "$YoN" in
   [sS]* )
     NotifyInfo "Clonando o repositório do Vessel..."
-    git clone git@git2bis.com.br:bis2bis/m1/dev-tools/vessel.git --branch=salinet && NotifySuccess "Repositório do Vessel clonado com sucesso!" || NotifyError "Por algum motivo acima, não foi possível clonar o repositório do Vessel."
+    git clone git@github.com:rodrigo-salinet/vessel-github.git && NotifySuccess "Repositório do Vessel clonado com sucesso!" || NotifyError "Por algum motivo acima, não foi possível clonar o repositório do Vessel."
     ;;
   [nN]* )
     NotifyInfo "Não será clonado o repositório do Vessel."

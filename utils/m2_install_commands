@@ -6,9 +6,9 @@
         --db-user=root \
         --db-password=magento \
         --admin-firstname=Suporte \
-        --admin-lastname=Bis2bis \
-        --admin-email=suporte@bis2bis.com.br \
-        --admin-user=bis2bis \
+        --admin-lastname=Dev \
+        --admin-email=suporte@dev.com.br \
+        --admin-user=developer \
         --admin-password=admin123 \
         --backend-frontname=admin \
         --cleanup-database
@@ -44,7 +44,7 @@
 ./bin/magento config:set general/single_store_mode/enabled 1
 ./bin/magento config:set general/store_information/country_id BR
 ./bin/magento config:set general/store_information/region_id 499
-./bin/magento config:set general/store_information/name 'Bis2bis E-commerce'
+./bin/magento config:set general/store_information/name 'Salinet Agencia Digital'
 ./bin/magento config:set general/store_information/phone '43 3326-1500'
 ./bin/magento config:set general/store_information/postcode '86050-435'
 ./bin/magento config:set general/store_information/city 'Londrina'

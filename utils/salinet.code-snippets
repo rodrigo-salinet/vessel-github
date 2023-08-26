@@ -130,7 +130,7 @@
             ","
             "\"reponame\": {",
             "    \"type\": \"vcs\",",
-            "    \"url\": \"git@git2bis.com.br:bis2bis/bis2bis/modulepath\"",
+            "    \"url\": \"git@github.com:rodrigo-salinet/modulepath\"",
             "}",
         ],
         "description": "Add manually ssh url to clone repository in composer.json files into repositories"
@@ -139,7 +139,7 @@
         "prefix": "addreq",
         "body": [
             ","
-            "\"bis2bis/composername\": \"^tag-or-dev-branchname\"",
+            "\"rodrigo-salinet/composername\": \"^tag-or-dev-branchname\"",
         ],
         "description": "Add manually namespace and branch name repository in composer.json files into require"
     },

@@ -2,7 +2,7 @@
 
 ShowMenu() {
     clear
-    NotifyHeader "Vessel CLI $VER - A bash GUI for Bis2bis Development"
+    NotifyHeader "Vessel CLI $VER - A bash GUI for Magento Developers"
 
     Notify "Obs: todos os comandos abaixo podem ser utilizados diretamente pelo terminal
 Por exemplo: se digitar '$YELLOW vessel s2 $NC' e teclar $YELLOW ENTER $NC (no terminal) irá (re)iniciar os containeres de lojas magento 2"
@@ -15,7 +15,6 @@ Por exemplo: se digitar '$YELLOW vessel s2 $NC' e teclar $YELLOW ENTER $NC (no t
     NotifyMenu "[ sc     ]  Parar containers"
     NotifyMenu "[ hst    ]  Adicionar loja ao Hosts"
     NotifyMenu "[ zd     ]  Zerar docker"
-    NotifyMenu "[ mig    ]  Migração git2bis"
 
     NotifyTitle "COMANDOS DE MANUTENÇÃO DE CONTAINERES"
     echo ""

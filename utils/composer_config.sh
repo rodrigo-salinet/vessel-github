@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Configure Git2bis Username
-git config --global user.name $GIT2BIS_USERNAME
+# Configure Github Username
+git config --global user.name $GITHUB_USERNAME
 
-# Configure Git2bis User Email
-git config --global user.email $GIT2BIS_USEREMAIL
+# Configure Github User Email
+git config --global user.email $GITHUB_USEREMAIL
 
-# Configure Git2bis Token
-composer config --global gitlab-token.git2bis.com.br $GIT2BIS_TOKEN
+# Configure Github Token
+composer config --global github-token.github.com $GITHUB_TOKEN

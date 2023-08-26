@@ -37,9 +37,9 @@ MCompassWatch() {
   MExecute "cd ${M_WWW_PATH}/$P_NAME && compass watch &>/dev/null &" && NotifySuccess "Compass watch executado com sucesso" || NotifyError "Por algum motivo acima não foi possível executar o compass watch"
 }
 
-cfgGit2bisTokenNull() {
-  NotifyInfo "Acesse https://git2bis.com.br/-/profile/personal_access_tokens para gerar um novo token"
-  Notify "Digite o seu token de acesso ao Git2bis e tecle ENTER"
+cfgGithubTokenNull() {
+  NotifyInfo "Acesse https://github.com/settings/tokens para gerar um novo token"
+  Notify "Digite o seu token de acesso ao Github e tecle ENTER"
   read GLTKN
   case $GLTKN in
   "")
@@ -47,15 +47,15 @@ cfgGit2bisTokenNull() {
     checkEnv
     ;;
   * )
-    NotifyInfo "Configurando a variável de ambiente GIT2BIS_TOKEN no arquivo .env"
-    GIT2BIS_TOKEN="$GLTKN"
-    sed -i "s/GIT2BIS_TOKEN=/GIT2BIS_TOKEN=$GLTKN/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GIT2BIS_TOKEN configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GIT2BIS_TOKEN"
+    NotifyInfo "Configurando a variável de ambiente GITHUB_TOKEN no arquivo .env"
+    GITHUB_TOKEN="$GLTKN"
+    sed -i "s/GITHUB_TOKEN=/GITHUB_TOKEN=$GLTKN/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GITHUB_TOKEN configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GITHUB_TOKEN"
     ;;
   esac
 }
 
-cfgGit2bisUsernameNull() {
-  Notify "Digite o seu username de acesso ao Git2bis e tecle ENTER"
+cfgGithubUsernameNull() {
+  Notify "Digite o seu username de acesso ao Github e tecle ENTER"
   read GLUN
   case $GLUN in
   "")
@@ -63,15 +63,15 @@ cfgGit2bisUsernameNull() {
     checkEnv
     ;;
   * )
-    NotifyInfo "Configurando a variável de ambiente GIT2BIS_USERNAME no arquivo .env"
-    GIT2BIS_USERNAME="$GLUN"
-    sed -i "s/GIT2BIS_USERNAME=/GIT2BIS_USERNAME=$GLUN/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GIT2BIS_USERNAME configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GIT2BIS_USERNAME"
+    NotifyInfo "Configurando a variável de ambiente GITHUB_USERNAME no arquivo .env"
+    GITHUB_USERNAME="$GLUN"
+    sed -i "s/GITHUB_USERNAME=/GITHUB_USERNAME=$GLUN/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GITHUB_USERNAME configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GITHUB_USERNAME"
     ;;
   esac
 }
 
-cfgGit2bisUseremailNull() {
-  Notify "Digite o seu email de acesso ao Git2bis e tecle ENTER"
+cfgGithubUseremailNull() {
+  Notify "Digite o seu email de acesso ao Github e tecle ENTER"
   read GLUE
   case $GLUE in
   "")
@@ -79,9 +79,9 @@ cfgGit2bisUseremailNull() {
     checkEnv
     ;;
   * )
-    NotifyInfo "Configurando a variável de ambiente GIT2BIS_USEREMAIL no arquivo .env"
-    GIT2BIS_USEREMAIL="$GLUE"
-    sed -i "s/GIT2BIS_USEREMAIL=/GIT2BIS_USEREMAIL=$GLUE/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GIT2BIS_USEREMAIL configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GIT2BIS_USEREMAIL"
+    NotifyInfo "Configurando a variável de ambiente GITHUB_USEREMAIL no arquivo .env"
+    GITHUB_USEREMAIL="$GLUE"
+    sed -i "s/GITHUB_USEREMAIL=/GITHUB_USEREMAIL=$GLUE/g" $V_ENV_FILE && NotifySuccess "Variável de ambiente GITHUB_USEREMAIL configurada com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar a variável de ambiente GITHUB_USEREMAIL"
     ;;
   esac
 }
@@ -164,24 +164,24 @@ cfgM2StorePathNull(){
   esac
 }
 
-cfgGit2bisSsh() {
+cfgGithubSsh() {
   if [ ! -f "/home/$USER/.ssh/id_ed25519.pub" ]; then
-    NotifyAsk "Chave SSH key do Git2bis não encontrada em /home/$USER/.ssh/id_ed25519. Deseja gerar uma nova chave SSH? s/n"
+    NotifyAsk "Chave SSH key do Github não encontrada em /home/$USER/.ssh/id_ed25519. Deseja gerar uma nova chave SSH? s/n"
 
     read YON
     case $YON in
       s | S )
-        NotifyInfo "Gerando nova chave SSH key do Git2bis"
+        NotifyInfo "Gerando nova chave SSH key do Github"
         ssh-keygen -t ed25519 -f /home/$USER/.ssh/id_ed25519 -q -N ''
-        NotifySuccess "Chave SSH key do Git2bis gerada com sucesso, veja abaixo:\n"
+        NotifySuccess "Chave SSH key do Github gerada com sucesso, veja abaixo:\n"
         cat /home/$USER/.ssh/id_ed25519.pub
-        NotifyInfo "Para continuar: \n\n 1. Adicione a chave SSH gerada acima ao seu repositório do Git2bis em https://git2bis.com.br/-/profile/keys;\n\n 2. Depois acesse https://git2bis.com.br/-/profile/personal_access_tokens para gerar um novo token de acesso; e,\n\n 3. Depois adicione o token gerado na continuação da instalação do vessel."
+        NotifyInfo "Para continuar: \n\n 1. Adicione a chave SSH gerada acima ao seu repositório do Github em https://github.com/settings/keys;\n\n 2. Depois acesse https://github.com/settings/tokens para gerar um novo token de acesso; e,\n\n 3. Depois adicione o token gerado na continuação da instalação do vessel."
         continuar
         checkEnv
         ;;
       n | N | "" | * )
-        NotifyInfo "É necessário gerar uma nova chave SSH key do Git2bis para continuar"
-        cfgGit2bisSsh
+        NotifyInfo "É necessário gerar uma nova chave SSH key do Github para continuar"
+        cfgGithubSsh
         ;;
     esac
   fi
@@ -233,16 +233,16 @@ checkEnv() {
     ln -s $M2_STORE_PATH www && NotifySuccess "Link das lojas M2 criado com sucesso" || NotifyError "Por algum motivo acima não foi possível criar o link das lojas M2"
   fi
 
-  if [ -z $GIT2BIS_TOKEN ]; then
-    cfgGit2bisTokenNull
+  if [ -z $GITHUB_TOKEN ]; then
+    cfgGithubTokenNull
   fi
 
-  if [ -z "$GIT2BIS_USERNAME" ]; then
-    cfgGit2bisUsernameNull
+  if [ -z "$GITHUB_USERNAME" ]; then
+    cfgGithubUsernameNull
   fi
 
-  if [ -z "$GIT2BIS_USEREMAIL" ]; then
-    cfgGit2bisUseremailNull
+  if [ -z "$GITHUB_USEREMAIL" ]; then
+    cfgGithubUseremailNull
   fi
 
   if [ -z "$USER" ]; then
@@ -261,7 +261,7 @@ checkEnv() {
     cfgM2StorePathNull
   fi
 
-  cfgGit2bisSsh
+  cfgGithubSsh
 
   cfgVscode
 }
@@ -412,7 +412,7 @@ ZeraDocker() {
   esac
 }
 
-Git2bisComposerGlobalConfigs() {
+GithubComposerGlobalConfigs() {
   PNameLocal
 
   if [ -e $M_WWW_PATH/$P_NAME/auth.json ]; then
@@ -425,25 +425,19 @@ Git2bisComposerGlobalConfigs() {
     MExecute "cd $P_NAME && composer global config http-basic.repo.magento.com 4b5035e90eebe8bb3e77b7fec37f18e2 a5b4ed3838cb726d81054dd1ce528dde" && NotifySuccess "composer global http-basic executado com sucesso!" || NotifyError "Por algum motivo acima não foi possível executar o composer global config http-basic."
   fi
 
-  MExecute "cd $P_NAME && composer global config gitlab-domains \"git2bis.com.br\" \"gitlab.com\"" && NotifySuccess "composer global config gitlab-domains executado com sucesso!" || NotifyError "Por algum motivo acima não foi possível executar o composer global config gitlab-domains."
+  MExecute "cd $P_NAME && composer global config github-domains \"github.com\"" && NotifySuccess "composer global config github-domains executado com sucesso!" || NotifyError "Por algum motivo acima não foi possível executar o composer global config github-domains."
 
-  NotifyInfo "Configurando token git2bis na loja"
-  MExecute "cd $P_NAME && yes | composer global config gitlab-token.git2bis.com.br $GIT2BIS_TOKEN" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
-
-  NotifyInfo "Configurando token gitlab na loja"
-  MExecute "cd $P_NAME && yes | composer global config gitlab-token.gitlab.com EPHBxnoKP-cyV8Gvra1J" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
+  NotifyInfo "Configurando token github na loja"
+  MExecute "cd $P_NAME && yes | composer global config github-token.github.com $GITHUB_TOKEN" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
 }
 
 ComposerInstall() {
   PNameLocal
 
-  Git2bisComposerGlobalConfigs
+  GithubComposerGlobalConfigs
 
-  # NotifyInfo "Configurando token git2bis na loja"
-  # MExecute "cd $P_NAME && sudo composer config gitlab-token.git2bis.com.br $GIT2BIS_TOKEN" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
-
-  # NotifyInfo "Configurando token gitlab na loja"
-  # MExecute "cd $P_NAME && sudo composer config gitlab-token.gitlab.com EPHBxnoKP-cyV8Gvra1J" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
+  NotifyInfo "Configurando token github na loja"
+  MExecute "cd $P_NAME && sudo composer config github-token.github.com $GITHUB_TOKEN" && NotifySuccess "Token configurado com sucesso!" || NotifyError "Por algum motivo acima não foi possível configurar o token. Veja acima"
 
   NotifyInfo "Executando composer install"
   MExecute "cd $P_NAME && composer-1 install $COMPOSER_OPTIONS" && NotifySuccess "Composer instalado com sucesso" || NotifyError "Por algum motivo acima não foi possível instalar o composer"
@@ -465,15 +459,9 @@ ComposerUpdate() {
         NotifyInfo "Removendo arquivo composer.lock"
         rm -rf $M_WWW_PATH/$P_NAME/composer.lock && NotifySuccess "Aquivo composer.lock removido da loja $P_NAME" || NotifyError "Por algum motivo acima não foi possível remover o arquivo composer.lock da loja $P_NAME"
       fi
-
-      NotifyInfo "Ajustando dependência \"varien\":\"*\" do módulo uploader no arquivo composer.json da loja, antes de continuar."
-
-      MExecute "cd $P_NAME && sudo composer config repositories.varien vcs git@git2bis.com.br:bis2bis/m1/modulos/core/library/varien.git" && NotifySuccess "composer config executado com sucesso!" || NotifyError "Por algum motivo acima não foi possível executar o composer config."
-
-      MExecute "cd $P_NAME && composer require bis2libs/varien:dev-master --no-update" && NotifySuccess "composer require executado com sucesso!" || NotifyError "Por algum motivo acima não foi possível executar o composer require."
     fi
 
-    Git2bisComposerGlobalConfigs
+    GithubComposerGlobalConfigs
 
     NotifyInfo "Executando composer update em $M_WWW_PATH/$P_NAME"
     if [ $MAGENTO == 1 ]; then
@@ -616,11 +604,11 @@ Dump() {
     NotifyInfo "Compactando arquivo novamente"
     gzip -f $DB_MYSQL_PATH/$P_NAME.sql && NotifySuccess "Arquivo $P_NAME.sql compactado com sucesso" || NotifyError "Por algum motivo acima não foi possível compactar o arquivo $P_NAME.sql"
 
-    NotifyInfo "Inserindo tabelas removidas pelo dump no Git2bis"
+    NotifyInfo "Inserindo tabelas removidas pelo dump no Github"
     if [ $MAGENTO == 1 ]; then
-      MExecute "pv /shared/backups/mysql/repair_aws_dump.sql | $MySQLConn $P_NAME" && NotifySuccess "Tabelas inseridas com sucesso (removidas pelo dump no Git2bis)" || NotifyError "Por algum motivo acima não foi possível inserir as tabelas (removidas pelo Dump no Git2bis)"
+      MExecute "pv /shared/backups/mysql/repair_aws_dump.sql | $MySQLConn $P_NAME" && NotifySuccess "Tabelas inseridas com sucesso (removidas pelo dump no Github)" || NotifyError "Por algum motivo acima não foi possível inserir as tabelas (removidas pelo Dump no Github)"
     else
-      Notify "Não foi necessário inserir as tabelas removidas pelo dump no Git2bis"
+      Notify "Não foi necessário inserir as tabelas removidas pelo dump no Github"
     fi
 
     NotifyInfo "Ativando a opção Confirmação Automática (autocommit)"
@@ -644,10 +632,10 @@ Dump() {
       RECAPTCHA_SECRETKEY="6LdlH1cUAAAAAMB-reTsR9SiKfugWh7wO2ZtsZ-h"
 
       NotifyInfo "Configurando site_key (master)"
-      MExecute "$MySQLConn $P_NAME -e 'UPDATE core_config_data SET value = \"$RECAPTCHA_SITEKEY\" WHERE path = \"bis2bis_googlerecaptcha/general/site_key\";'" && NotifySuccess "site_key (master) configurado com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar o site_key (master)"
+      MExecute "$MySQLConn $P_NAME -e 'UPDATE core_config_data SET value = \"$RECAPTCHA_SITEKEY\" WHERE path = \"github_googlerecaptcha/general/site_key\";'" && NotifySuccess "site_key (master) configurado com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar o site_key (master)"
 
       NotifyInfo "Configurando secret_key (master)"
-      MExecute "$MySQLConn $P_NAME -e 'UPDATE core_config_data SET value = \"$RECAPTCHA_SECRETKEY\" WHERE path = \"bis2bis_googlerecaptcha/general/secret_key\";'" && NotifySuccess "secret_key (master) configurado com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar o secret_key (master)"
+      MExecute "$MySQLConn $P_NAME -e 'UPDATE core_config_data SET value = \"$RECAPTCHA_SECRETKEY\" WHERE path = \"github_googlerecaptcha/general/secret_key\";'" && NotifySuccess "secret_key (master) configurado com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar o secret_key (master)"
 
       NotifyInfo "Configurando site_key (v1)"
       MExecute "$MySQLConn $P_NAME -e 'UPDATE core_config_data SET value = \"$RECAPTCHA_SITEKEY\" WHERE path = \"security/general/site_key\";'" && NotifySuccess "site_key (v1) configurado com sucesso" || NotifyError "Por algum motivo acima não foi possível configurar o site_key (v1)"
@@ -693,47 +681,6 @@ Dump() {
 
     continuar
 
-    Notify "Utilize o link abaixo para gerar um novo dump:"
-    NotifyAsk "https://git2bis.com.br/bis2bis/bis2bis-stores/dump-bis2bis/-/pipelines/new *"
-
-    Notify "Instruções para gerar um novo dump:"
-    echo ""
-
-    continuar
-
-    Notify "1. Acesse o arquivo .gitlab-ci.yml da loja em:"
-    NotifyAsk "https://git2bis.com.br/bis2bis/bis2bis-stores/$G_NAME/-/blob/master/.gitlab-ci.yml"
-    echo ""
-    Notify "2. Para dump S3 AWS utilize:"
-    NotifyInfo "  > 2.1 Copie e cole o >> nome << da variável ENV_STORE_NAME no campo 'Input variable key'*;"
-    NotifyInfo "  > 2.2 Copie e cole o >> valor << da variável ENV_STORE_NAME no campo 'Input variable value'*;"
-    NotifyInfo "  > 2.3 Copie e cole o >> nome << da variável ENV_DB_HOST no outro campo 'Input variable key'*;"
-    NotifyInfo "  > 2.4 Copie e cole o >>> valor << da variável ENV_DB_HOST no outro campo 'Input variable value'*;"
-    echo ""
-    Notify "3. Para dump hauwei utilize:"
-    NotifyInfo "  > 2.1 Copie e cole o >> nome << da variável NAMESPACE no campo 'Input variable key'*;"
-    NotifyInfo "  > 2.2 Copie e cole o >> valor << da variável NAMESPACE no campo 'Input variable value'*;"
-    echo ""
-    Notify "4. Feito o acima, clique em 'Run pipeline'*;"
-    Notify "5. Depois clique no 'play' da pipeline correspondente, Dump-aws '>' ou Dump-hauwei '>'*;"
-    echo ""
-
-    continuar
-
-    NotifyAsk "Utilize as credenciais abaixo para acessar o respectivo dump gerado:\n"
-
-    NotifyInfo "S3 AWS"
-    Notify "HOST: https://s3.console.aws.amazon.com/s3/buckets/bisws-dbdumps"
-    Notify "ID: bisws"
-    Notify "LOGIN: dumps"
-    Notify "PASS: Pn\$L7AF4KS9*L@ec\n"
-
-    NotifyInfo "Hauwei"
-    Notify "HOST: https://auth.huaweicloud.com/authui/login?id=bis2bis"
-    Notify "ID: bis2bis"
-    Notify "LOGIN: dbdumps"
-    Notify "PASS: qiwluXV&\"6L\$au%G\n"
-
     NotifyAsk "Deseja continuar? [s/n]"
     read SON
     case "$SON" in
@@ -752,10 +699,10 @@ Dump() {
   fi
 }
 
-Git2bisTypeStoreName() {
-  Notify "   1. Acesse >>> $GIT2BIS_STORES_URL <<<;
+GithubTypeStoreName() {
+  Notify "   1. Acesse >>> $GITHUB_STORES_URL <<<;
     2. Procure pela loja;
-    3. Copie (CTRL+C) o nome da loja, exatamente como está na URL do repositório do Git2bis, com traços, por exemplo: ana-maria-flores, copiado da URL https://git2bis.com.br/bis2bis/bis2bis-stores/ana-maria-flores;
+    3. Copie (CTRL+C) o nome da loja, exatamente como está na URL do repositório do Github, com traços, por exemplo: rodrigo-salinet, copiado da URL https://github.com/rodrigo-salinet;
     4. Cole abaixo (CTRL+SHIFT+V);
     5. Tecle ENTER."
   NotifyInfo "Digite o nome da loja"
@@ -766,7 +713,7 @@ Git2bisTypeStoreName() {
     "")
       NotifyError "Ops! Nome inválido. Tente novamente."
       continuar
-      Git2bisTypeStoreName
+      GithubTypeStoreName
       ;;
   esac
 
@@ -860,40 +807,15 @@ M1Reindex() {
   MExecute "cd $P_NAME/shell && php indexer.php --reindex tag_summary" && NotifySuccess "tag_summary reindexado com sucesso" || NotifyError "Por algum motivo acima não foi possível reindexar tag_summary"
 }
 
-GitMigrate() {
-  PNameLocal
-
-  DIR_LOJA=$M_PATH/data/www/$P_NAME
-
-  NotifyInfo "Acessando diretório da loja $DIR_LOJA"
-  cd $DIR_LOJA
-
-  sed -i "s/git@gitlab.com:/git@git2bis.com.br:/g" composer.json && NotifySuccess "Arquivo composer.json migrado com sucesso" || NotifyError "Por algum motivo acima não foi possível migrar o arquivo composer.json"
-
-  sed -i "s/https:\/\/gitlab.com\//https:\/\/git2bis.com.br\//g" composer.json && NotifySuccess "Arquivo composer.json migrado com sucesso" || NotifyError "Por algum motivo acima não foi possível migrar o arquivo composer.json"
-
-  if [ -f "$DIR_LOJA/composer.lock" ]; then
-    sed -i "s/git@gitlab.com:/git@git2bis.com.br:/g" composer.lock && NotifySuccess "Arquivo composer.lock migrado com sucesso" || NotifyError "Por algum motivo acima não foi possível migrar o arquivo composer.lock"
-
-    sed -i "s/https:\/\/gitlab.com\//https:\/\/git2bis.com.br\//g" composer.lock && NotifySuccess "Arquivo composer.lock migrado com sucesso" || NotifyError "Por algum motivo acima não foi possível migrar o arquivo composer.lock"
-  fi
-}
-
 InstalarLojaM15() {
-  GIT2BIS_STORES_URL=$GIT2BIS_M15_STORES_URL
+  GITHUB_STORES_URL=$GITHUB_M15_STORES_URL
 
-  Git2bisTypeStoreName
+  GithubTypeStoreName
 
-  GIT_URL="git@git2bis.com.br:bis2bis/bis2bis-stores/$G_NAME.git"
+  GIT_URL="git@github.com:rodrigo-salinet/$G_NAME.git"
 
   Notify "Clonando loja"
   GitClone
-
-  Notify "Migrando para git2bis.com.br"
-  GitMigrate
-
-  # Notify "Instalação composer"
-  # ComposerInstall && NotifySuccess "Instalação composer realizada com sucesso!" || NotifyError "Ops! Não foi possível realizar a instalação composer. Verifique os logs acima."
 
   Notify "Executando composer update"
   ComposerUpdate
@@ -919,20 +841,14 @@ InstalarLojaM15() {
 }
 
 InstalarLojaM19() {
-  GIT2BIS_STORES_URL=$GIT2BIS_M19_STORES_URL
+  GITHUB_STORES_URL=$GITHUB_M19_STORES_URL
 
-  Git2bisTypeStoreName
+  GithubTypeStoreName
 
-  GIT_URL="git@git2bis.com.br:bis2bis/bis2bis-stores/magento-1.9/$G_NAME.git"
+  GIT_URL="git@github.com:rodrigo-salinet/magento-1.9/$G_NAME.git"
 
   Notify "Clonando loja"
   GitClone
-
-  Notify "Migrando para git2bis.com.br"
-  GitMigrate
-
-  # Notify "Instalação composer"
-  # ComposerInstall
 
   Notify "Executando composer update"
   ComposerUpdate
@@ -955,17 +871,14 @@ InstalarLojaM19() {
 }
 
 InstalarLojaM24() {
-  GIT2BIS_STORES_URL=$GIT2BIS_M24_STORES_URL
+  GITHUB_STORES_URL=$GITHUB_M24_STORES_URL
 
-  Git2bisTypeStoreName
+  GithubTypeStoreName
 
-  GIT_URL="git@git2bis.com.br:bis2bis/m2/lojas/$G_NAME.git"
+  GIT_URL="git@github.com:rodrigo-salinet/m2/lojas/$G_NAME.git"
 
   Notify "Clonando loja"
   GitClone
-
-  Notify "Migrando para git2bis.com.br"
-  GitMigrate
 
   Notify "Adicionando host"
   AddHost
@@ -1128,26 +1041,6 @@ RemoveLoja() {
 MStartLog() {
   NotifyInfo "Inicializando containers do Magento $MAGENTO com logs"
   cd ${M_PATH} && docker-compose up
-}
-
-gitSetBranch() {
-  NotifyInfo "Acesse https://git2bis.com.br/-/jira_connect/branches/new?issue_key=feature-hotfix-release-evnnn-action-taken-description para gerar uma nova branch.\n"
-
-  GIT_BRANCH="master"
-  if [ $MAGENTO == 2 ]; then
-    GIT_BRANCH="main"
-  fi
-
-  NotifyAsk "Digite o nome de uma branch existente no repositório e tecle ENTER para continuar,"
-  Notify "ou apenas tecle ENTER para continuar da branch $GIT_BRANCH padrão.\n"
-  read BRANCH_NAME
-  case "$BRANCH_NAME" in
-    *)
-      if [ ! -z "$BRANCH_NAME" ]; then
-        GIT_BRANCH="$BRANCH_NAME"
-      fi
-      ;;
-  esac
 }
 
 GitClone() {

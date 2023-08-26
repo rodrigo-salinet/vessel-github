@@ -30,11 +30,11 @@ V_M1_WWW_PATH=${V_M1_PATH}/data/www
 # caminho (path) absoluto das lojas m2 do vessel
 V_M2_WWW_PATH=${V_M2_PATH}/data/www
 
-# Git2bis URL's
-GIT2BIS_BASE_URL=https://git2bis.com.br/api/v4/
-GIT2BIS_M15_STORES_URL=https://git2bis.com.br/bis2bis/bis2bis-stores/
-GIT2BIS_M19_STORES_URL=https://git2bis.com.br/bis2bis/bis2bis-stores/magento-1.9/
-GIT2BIS_M24_STORES_URL=https://git2bis.com.br/bis2bis/bis2bis/m2/lojas/
+# Github URL's
+GITHUB_BASE_URL=https://github.com/api/v4/
+GITHUB_M15_STORES_URL=https://github.com/rodrigo-salinet/stores/
+GITHUB_M19_STORES_URL=https://github.com/rodrigo-salinet/stores/magento-1.9/
+GITHUB_M24_STORES_URL=https://github.com/rodrigo-salinet/m2/lojas/
 
 # Conexão com mysql
 MySQLConn="mysql -h mysql -uroot -pmagento -f"
