@@ -147,7 +147,7 @@ app /code / clonar tema do git lab
 git branch develop
 git pull origin develop
 
-agora colar o tema que está em vendor/bistwobis/o tema que está trabalhando
+agora colar o tema que está em vendor/theme/o tema que está trabalhando
 
 no terminal dar git status
 depois git add
