@@ -100,8 +100,8 @@ services:
     privileged: true
 
     # command:
-    #   - git config --global user.name rodrigo.salinet
-    #   - git config --global user.email rodrigo.salinet@bistwobis.com.br
+    #   - git config --global user.name rodrigo-salinet
+    #   - git config --global user.email rodrigo.salinet@gmail.com
 
     ##
     ## All .env variables
