@@ -32,9 +32,9 @@ V_M2_WWW_PATH=${V_M2_PATH}/data/www
 
 # Github URL's
 GITHUB_BASE_URL=https://github.com/api/v4/
-GITHUB_M15_STORES_URL=https://github.com/rodrigo-salinet/stores/
+GITHUB_M15_STORES_URL=https://github.com/rodrigo-salinet/stores/magento-1.5/
 GITHUB_M19_STORES_URL=https://github.com/rodrigo-salinet/stores/magento-1.9/
-GITHUB_M24_STORES_URL=https://github.com/rodrigo-salinet/m2/lojas/
+GITHUB_M24_STORES_URL=https://github.com/rodrigo-salinet/stores/magento-2.4/
 
 # Conexão com mysql
 MySQLConn="mysql -h mysql -uroot -pmagento -f"
