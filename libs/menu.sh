@@ -5,7 +5,7 @@ ShowMenu() {
     NotifyHeader "Vessel CLI $VER - A bash GUI for Magento Developers"
 
     Notify "Obs: todos os comandos abaixo podem ser utilizados diretamente pelo terminal
-Por exemplo: se digitar '$YELLOW vessel s2 $NC' e teclar $YELLOW ENTER $NC (no terminal) irá (re)iniciar os containeres de lojas magento 2"
+    Por exemplo: se digitar '$YELLOW vessel s2 $NC' e teclar $YELLOW ENTER $NC (no terminal) irá (re)iniciar os containeres de lojas magento 2"
 
     NotifyTitle "COMANDOS DE USO GERAL"
     echo ""
@@ -77,6 +77,11 @@ Por exemplo: se digitar '$YELLOW vessel s2 $NC' e teclar $YELLOW ENTER $NC (no t
     fi
 
     if [  $MAGENTO == 2  ]; then
+        NotifyMenu "[ clone2 ]  Clonar Loja M2"
+        NotifyMenu "[ ant    ]  Adicionar NGROK Tunel"
+    fi
+
+    if [  $MAGENTO == 3  ]; then
         NotifyMenu "[ clone2 ]  Clonar Loja M2"
         NotifyMenu "[ ant    ]  Adicionar NGROK Tunel"
     fi
