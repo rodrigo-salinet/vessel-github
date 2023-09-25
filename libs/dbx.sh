@@ -6,6 +6,7 @@ DbxStart() {
     sed -i "s/MAGENTO=/MAGENTO=3/g" $V_PATH/.env
   else
     sed -i "s/MAGENTO=1/MAGENTO=3/g" $V_PATH/.env
+    sed -i "s/MAGENTO=2/MAGENTO=3/g" $V_PATH/.env
   fi
 
   StopContainers
