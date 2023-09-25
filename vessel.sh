@@ -20,6 +20,11 @@ Main() {
     clear && M2Start && GoHome
     ;;
 
+  DBX | dbx)
+
+    clear && DbxStart && GoHome
+    ;;
+
   sc | SC)
 
     clear && StopContainers && GoHome
