@@ -6,6 +6,7 @@ M2Start() {
     sed -i "s/MAGENTO=/MAGENTO=2/g" $V_PATH/.env
   else
     sed -i "s/MAGENTO=1/MAGENTO=2/g" $V_PATH/.env
+    sed -i "s/MAGENTO=3/MAGENTO=2/g" $V_PATH/.env
   fi
 
   StopContainers
