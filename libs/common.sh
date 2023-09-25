@@ -324,6 +324,12 @@ StopContainers() {
 
   NotifyInfo "Acessando o diretório do magento 2 | docker-compose rm/down"
   cd ${V_M2_PATH} && docker-compose rm -f && docker-compose down && NotifySuccess "Containers removidos com sucesso!" || NotifyError "Por algum motivo acima não foi possível remover containers. Veja log acima."
+
+  NotifyInfo "Parando containers do Devilbox"
+  cd ${V_M3_PATH} && docker-compose stop -t 2 && NotifySuccess "Containers parados com sucesso!" || NotifyError "Por algum motivo acima não foi possível parar os containers. Veja log acima."
+
+  NotifyInfo "Acessando o diretório do Devilbox | docker-compose rm/down"
+  cd ${V_M3_PATH} && docker-compose rm -f && docker-compose down && NotifySuccess "Containers removidos com sucesso!" || NotifyError "Por algum motivo acima não foi possível remover containers. Veja log acima."
 }
 
 ZeraDocker() {
