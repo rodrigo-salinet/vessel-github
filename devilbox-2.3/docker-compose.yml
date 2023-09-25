@@ -102,6 +102,8 @@ services:
   php:
     image: devilbox/php-fpm:${PHP_SERVER}-work-0.150
     hostname: php
+    restart: always
+    privileged: true
 
     ##
     ## All .env variables
@@ -218,6 +220,12 @@ services:
       # Certificate Authority public key
       - ${DEVILBOX_PATH}/ca:/ca:rw${MOUNT_OPTIONS}
 
+      # Pasta de módulos locais
+      - ${DEVILBOX_PATH}/data/modulos:/shared/modulos:rw${MOUNT_OPTIONS}
+
+      # Cache composer
+      - devilbox-composer:/home/devilbox/.composer:rw${MOUNT_OPTIONS}
+
       # Users SSH directory (read-only)
       - ${HOST_PATH_SSH_DIR}:/home/devilbox/.ssh:ro${MOUNT_OPTIONS}
 
@@ -225,12 +233,61 @@ services:
       - bind
 
 
+  # -----------------------------------------------------------------------------------------------
+  # ELK Stack
+  # -----------------------------------------------------------------------------------------------
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:${ELK_SERVER:-6.6.1}
+    hostname: elastic
+    restart: always
+    ports:
+      - "${LOCAL_LISTEN_ADDR}${HOST_PORT_ELK_ELASTIC:-9200}:9200"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.240
+    environment:
+      - TZ=${TIMEZONE:-UTC}
+      - discovery.type=single-node
+    volumes:
+      - devilbox-elastic:/usr/share/elasticsearch/data
+    command:
+      - sh
+      - -c
+      - "./bin/elasticsearch-plugin list | grep -q analysis-phonetic
+          || yes | ./bin/elasticsearch-plugin install --silent analysis-phonetic;
+          ./bin/elasticsearch-plugin list | grep -q analysis-icu
+          || yes | ./bin/elasticsearch-plugin install --silent analysis-icu;
+          /usr/local/bin/docker-entrypoint.sh elasticsearch"
+
+
+  # -----------------------------------------------------------------------------------------------
+  # NGROK
+  # -----------------------------------------------------------------------------------------------
+  ngrok:
+    image: devilbox/ngrok:0.3
+    hostname: ngrok
+    restart: always
+    environment:
+      - HTTP_TUNNELS=${NGROK_HTTP_TUNNELS:-httpd:httpd:80}
+      - AUTHTOKEN=${NGROK_AUTHTOKEN:-}
+      - REGION=${NGROK_REGION:-us}
+    ports:
+      - "${LOCAL_LISTEN_ADDR}${HOST_PORT_NGROK:-4040}:4040"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.202
+    depends_on:
+      - bind
+      - php
+      - httpd
+
   # ------------------------------------------------------------
   # Web Server
   # ------------------------------------------------------------
   httpd:
     image: devilbox/${HTTPD_SERVER}:${HTTPD_FLAVOUR:-alpine}-1.0
     hostname: httpd
+    restart: always
 
     environment:
 
@@ -343,6 +400,7 @@ services:
   mysql:
     image: devilbox/mysql:${MYSQL_SERVER}-0.21
     hostname: mysql
+    restart: always
 
     environment:
       - MYSQL_ROOT_PASSWORD
@@ -351,6 +409,10 @@ services:
     ports:
       # [local-machine:]local-port:docker-port
       - "${LOCAL_LISTEN_ADDR}${HOST_PORT_MYSQL}:3306"
+
+    ## Fix mbind: Operation not permitted
+    security_opt:
+      - seccomp:unconfined
 
     networks:
       app_net:
@@ -415,11 +477,18 @@ services:
   redis:
     image: redis:${REDIS_SERVER}
     hostname: redis
+    restart: always
 
     # Apply custom arguments to redis startup
     command: redis-server ${REDIS_ARGS:- }
     environment:
       - REDIS_ARGS=${REDIS_ARGS:- }
+
+      # Fix virtual machine memory usage
+      - vm.overcommit_memory=1
+
+      # Disable transparent huge pages
+      - transparent_hugepage=never
 
     ports:
       # [local-machine:]local-port:docker-port
@@ -441,6 +510,7 @@ services:
   memcd:
     image: memcached:${MEMCD_SERVER}
     hostname: memcd
+    restart: always
 
     ports:
       # [local-machine:]local-port:docker-port
@@ -450,6 +520,24 @@ services:
       app_net:
         ipv4_address: 172.16.238.15
 
+    depends_on:
+      - bind
+      - php
+      - httpd
+
+
+  # -------------------------------------------------------------
+  # MailHog
+  # -------------------------------------------------------------
+  mailhog:
+    image: mailhog/mailhog:${MAILHOG_SERVER:-latest}
+    hostname: mailhog
+    restart: always
+    ports:
+      - "${LOCAL_LISTEN_ADDR}${HOST_PORT_MAILHOG:-8025}:8025"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.201
     depends_on:
       - bind
       - php
@@ -509,6 +597,11 @@ volumes:
   devilbox-mail:
 
   # ------------------------------------------------------------
+  # Elastic Search
+  # ------------------------------------------------------------
+  devilbox-elastic:
+  
+  # ------------------------------------------------------------
   # MySQL
   # ------------------------------------------------------------
   devilbox-mysql-5.5:
@@ -531,6 +624,16 @@ volumes:
   devilbox-percona-5.6:
   devilbox-percona-5.7:
   devilbox-percona-8.0:
+
+  # ------------------------------------------------------------
+  # Ngrok
+  # ------------------------------------------------------------
+  devilbox-ngrok:
+
+  # ------------------------------------------------------------
+  # Composer
+  # ------------------------------------------------------------
+  devilbox-composer:
 
   # ------------------------------------------------------------
   # Postgres
