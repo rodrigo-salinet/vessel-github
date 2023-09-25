@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# atualizando repositório apt-get
-sudo apt-get update
-
-# instalando python3-certbot-nginx
-sudo apt-get install python3-certbot-nginx -y
+# Verifying if python3-certbot-nginx is installed on container
+PACKAGE_PYTHON3_CERTBOT_NGINX=$(apt -qq list python3-certbot-nginx)
+if [ $PACKAGE_PYTHON3_CERTBOT_NGINX == "" ]; then
+    # Installing python3-certbot-nginx package
+    sudo apt-get install python3-certbot-nginx -y
+fi
